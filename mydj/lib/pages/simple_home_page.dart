@@ -21,13 +21,21 @@ class _SimpleHomePageState extends State<SimpleHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Image.asset(
+              'assets/images/logo_kemendikbud.png',
+              width: 150,
+              height: 150,
+           ),
             ElevatedButton(onPressed: () => {}, child: Text('Lihat Jurnal')),
             SizedBox(width: 20),
             ElevatedButton(onPressed: () => {}, child: Text('Buat Jurnal')),
             SizedBox(width: 20),
             ElevatedButton(onPressed: () => {}, child: Text('Akun')),
             SizedBox(width: 20),
-            ElevatedButton(onPressed: () => {}, child: Text('Tentang aplikasi'))
+            ElevatedButton(
+              onPressed: () => {},
+              child: Text('Tentang aplikasi'),
+            ),
           ],
         ),
       ),
