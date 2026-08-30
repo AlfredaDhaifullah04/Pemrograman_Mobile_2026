@@ -15,7 +15,16 @@ class _SimpleHomePageState extends State<SimpleHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(),
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ElevatedButton(onPressed: () => {}, child: Text('Lihat Jurnal')),
+            ElevatedButton(onPressed: () => {}, child: Text('Buat Jurnal'))
+          ],
+        ),
+      ),
     );
   }
 }

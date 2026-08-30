@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minggu_7_mydj/pages/simple_home_page.dart';
 
 void main() {
   runApp(const MyApp());
