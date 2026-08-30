@@ -17,24 +17,37 @@ class _SimpleHomePageState extends State<SimpleHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Row(
+        // Gunakan Column sebagai pembungkus utama agar Logo ada di atas tombol
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
+            // 1. Logo di bagian atas
             Image.asset(
               'assets/images/logo_kemendikbud.png',
               width: 150,
               height: 150,
-           ),
-            ElevatedButton(onPressed: () => {}, child: Text('Lihat Jurnal')),
-            SizedBox(width: 20),
-            ElevatedButton(onPressed: () => {}, child: Text('Buat Jurnal')),
-            SizedBox(width: 20),
-            ElevatedButton(onPressed: () => {}, child: Text('Akun')),
-            SizedBox(width: 20),
-            ElevatedButton(
-              onPressed: () => {},
-              child: Text('Tentang aplikasi'),
+            ),
+            SizedBox(height: 30), // Jarak antara logo dan tombol
+            
+            // 2. Row untuk menderetkan tombol secara horizontal
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(onPressed: () => {}, child: Text('Lihat Jurnal')),
+                SizedBox(width: 10), // Jarak antar tombol
+                
+                ElevatedButton(onPressed: () => {}, child: Text('Buat Jurnal')),
+                SizedBox(width: 10),
+                
+                ElevatedButton(onPressed: () => {}, child: Text('Akun')),
+                SizedBox(width: 10),
+                
+                ElevatedButton(
+                  onPressed: () => {},
+                  child: Text('Tentang aplikasi'),
+                ),
+              ],
             ),
           ],
         ),
