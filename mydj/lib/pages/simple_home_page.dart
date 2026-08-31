@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:mydj/pages/lihat_jurnal_page.dart';
 import 'package:mydj/pages/buat_jurnal_page.dart';
 import 'package:mydj/pages/akun_page.dart';
+import 'package:mydj/pages/tentang_aplikasi_page.dart';
+
 
 class SimpleHomePage extends StatefulWidget {
   const SimpleHomePage({super.key, required this.title});
@@ -37,6 +39,14 @@ class _SimpleHomePageState extends State<SimpleHomePage> {
       context,
       MaterialPageRoute(
         builder: (context) => AkunPage(title: 'Akun'),
+      ),
+    );
+  }
+  void _openTentangAplikasi(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TentangAplikasi(title: 'TentangAplikasi'),
       ),
     );
   }
@@ -82,7 +92,7 @@ class _SimpleHomePageState extends State<SimpleHomePage> {
                 SizedBox(width: 10),
 
                 ElevatedButton(
-                  onPressed: () => {},
+                  onPressed: () => _openTentangAplikasi(context),
                   child: Text('Tentang aplikasi'),
                 ),
               ],
