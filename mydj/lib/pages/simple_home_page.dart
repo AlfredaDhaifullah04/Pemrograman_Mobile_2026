@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // Jangan lupa import file halaman tujuan jika dipisah filenya
 // import 'lihat_jurnal_page.dart';
 import 'package:mydj/pages/lihat_jurnal_page.dart';
+import 'package:mydj/pages/buat_jurnal_page.dart';
 
 class SimpleHomePage extends StatefulWidget {
   const SimpleHomePage({super.key, required this.title});
@@ -20,6 +21,14 @@ class _SimpleHomePageState extends State<SimpleHomePage> {
       ),
     );
   }
+void _openBuatJurnalPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BuatJurnalPage(title: 'Buat Jurnal'),
+      ),
+    );
+  }  
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +56,15 @@ class _SimpleHomePageState extends State<SimpleHomePage> {
                   onPressed: () => _openLihatJurnalPage(context),
                   child: Text('Lihat Jurnal'),
                 ),
+                ElevatedButton(
+                  // PERBAIKAN: Hapus kurung kurawal { }
+                  onPressed: () => _openBuatJurnalPage(context),
+                  child: Text('Buat Jurnal'),
+                ),
                 SizedBox(width: 10),
 
-                ElevatedButton(onPressed: () => {}, child: Text('Buat Jurnal')),
-                SizedBox(width: 10),
+                // ElevatedButton(onPressed: () => {}, child: Text('Buat Jurnal')),
+                // SizedBox(width: 10),
 
                 ElevatedButton(onPressed: () => {}, child: Text('Akun')),
                 SizedBox(width: 10),
