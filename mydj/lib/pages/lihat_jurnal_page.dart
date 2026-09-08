@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mydj/jurnal/jurnal.dart';
 
 class LihatJurnalPage extends StatefulWidget {
   const LihatJurnalPage({super.key});
@@ -12,6 +13,11 @@ class LihatJurnalPage extends StatefulWidget {
 class _LihatJurnalPageState extends State<LihatJurnalPage> {
   @override
   Widget build(BuildContext context) {
+    final List<Jurnal> daftarJurnal = [
+      Jurnal(kelas: '3A', mapel: 'Bahasa Indonesia'),
+      Jurnal(kelas: '2A', mapel: 'IPA'),
+      Jurnal(kelas: '4B', mapel: 'IPS'),
+    ];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -24,15 +30,15 @@ class _LihatJurnalPageState extends State<LihatJurnalPage> {
             Expanded(
               child: ListView.separated(
                 itemBuilder: (context, index) => ListTile(
-                  title: Text('Judul Indeks ke-$index'),
-                  subtitle: Text('Sub-judul Indeks ke-$index'),
-                  trailing: Text('Trailing Indeks ke-$index'),
+                  title: Text(daftarJurnal[index].kelas),
+                  subtitle: Text(daftarJurnal[index].mapel),
+                  trailing: Text(daftarJurnal[index].createdAt.toString()),
                   onTap: () {},
                 ),
                 separatorBuilder: (context, index) => const Divider(),
-                itemCount: 20, // Jumlah baris kita set manual dulu..
+                itemCount: daftarJurnal.length, // Jumlah baris kita set manual dulu..
               ),
-            ), 
+            ),
           ],
         ),
       ),
