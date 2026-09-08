@@ -20,7 +20,7 @@ class _SimpleHomePageState extends State<SimpleHomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => LihatJurnalPage(title: 'Lihat Jurnal'),
+        builder: (context) => const LihatJurnalPage(title: 'Lihat Jurnal'),
       ),
     );
   }
@@ -29,7 +29,7 @@ class _SimpleHomePageState extends State<SimpleHomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => BuatJurnalPage(title: 'Buat Jurnal'),
+        builder: (context) => const BuatJurnalPage(title: 'Buat Jurnal'),
       ),
     );
   }
@@ -38,7 +38,7 @@ class _SimpleHomePageState extends State<SimpleHomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AkunPage(title: 'Akun'),
+        builder: (context) => const AkunPage(title: 'Akun'),
       ),
     );
   }
@@ -46,12 +46,12 @@ class _SimpleHomePageState extends State<SimpleHomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => TentangAplikasi(title: 'TentangAplikasi'),
+        builder: (context) => const TentangAplikasi(title: 'TentangAplikasi'),
       ),
     );
   }
 
-  @override
+  @override       
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -65,35 +65,31 @@ class _SimpleHomePageState extends State<SimpleHomePage> {
           children: [
             Image.asset(
               'assets/images/logo_kemendikbud.png',
-              width: 150,
-              height: 150,
+              width: 200,
+              height: 200,
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  // PERBAIKAN: Hapus kurung kurawal { }
                   onPressed: () => _openLihatJurnalPage(context),
-                  child: Text('Lihat Jurnal'),
+                  child: const Text('Lihat Jurnal'),
                 ),
+                const SizedBox(width: 10),
                 ElevatedButton(
-                  // PERBAIKAN: Hapus kurung kurawal { }
                   onPressed: () => _openBuatJurnalPage(context),
-                  child: Text('Buat Jurnal'),
+                  child: const Text('Buat Jurnal'),
                 ),
-                SizedBox(width: 10),
-
+                const SizedBox(width: 10),
                 ElevatedButton(
-                  // PERBAIKAN: Hapus kurung kurawal { }
                   onPressed: () => _openAkunPage(context),
-                  child: Text('Akun'),
+                  child: const Text('Akun'),
                 ),
-                SizedBox(width: 10),
-
+                const SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () => _openTentangAplikasi(context),
-                  child: Text('Tentang aplikasi'),
+                  child: const Text('Tentang aplikasi'),
                 ),
               ],
             ),

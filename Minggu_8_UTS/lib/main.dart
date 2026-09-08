@@ -34,9 +34,10 @@ class HalamanSatu extends StatefulWidget {
 class _HalamanSatuState extends State<HalamanSatu> {
   final _formKey = GlobalKey<FormState>();
 
-  final _namaController = TextEditingController();
-  final _nimController = TextEditingController();
-  final _emailController = TextEditingController();
+  // Diberi tipe data eksplisit TextEditingController untuk menghindari error method dispose
+  final TextEditingController _namaController = TextEditingController();
+  final TextEditingController _nimController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   String? _jenisKelamin;
 
@@ -158,7 +159,7 @@ class _HalamanSatuState extends State<HalamanSatu> {
               ),
               const SizedBox(height: 28),
 
-              // ── Tombol Lanjut (satu-satunya tombol di halaman ini) ──
+              // ── Tombol Lanjut ──
               ElevatedButton(
                 onPressed: _lanjut,
                 style: ElevatedButton.styleFrom(
@@ -213,21 +214,14 @@ class HalamanDua extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // ── Tampilan data dari halaman 1 ──
-            Text('Nama Lengkap : $nama',
-                style: const TextStyle(fontSize: 16)),
+            Text('Nama Lengkap : $nama', style: const TextStyle(fontSize: 16)),
             const SizedBox(height: 12),
-            Text('NIM          : $nim',
-                style: const TextStyle(fontSize: 16)),
+            Text('NIM          : $nim', style: const TextStyle(fontSize: 16)),
             const SizedBox(height: 12),
-            Text('Email        : $email',
-                style: const TextStyle(fontSize: 16)),
+            Text('Email        : $email', style: const TextStyle(fontSize: 16)),
             const SizedBox(height: 12),
-            Text('Jenis Kelamin: $jenisKelamin',
-                style: const TextStyle(fontSize: 16)),
+            Text('Jenis Kelamin: $jenisKelamin', style: const TextStyle(fontSize: 16)),
             const SizedBox(height: 32),
-
-            // ── Tombol Konfirmasi ──
             ElevatedButton(
               onPressed: () => _konfirmasi(context),
               style: ElevatedButton.styleFrom(

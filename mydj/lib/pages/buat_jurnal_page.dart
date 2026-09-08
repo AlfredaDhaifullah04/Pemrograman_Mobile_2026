@@ -1,22 +1,11 @@
 import 'package:flutter/material.dart';
 
 class BuatJurnalPage extends StatefulWidget {
-  const BuatJurnalPage({super.key, required this.title});
   final String title;
+  const BuatJurnalPage({super.key, this.title = 'Buat Jurnal'});
+
   @override
-  State<BuatJurnalPage> createState() {
-    return _BuatJurnalPageState(); // Seperti biasa, baris ini masih error.
-  }
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: const Center(
-        child: Text('Ini adalah halaman Lihat Jurnal'),
-      ),
-    );
-  }
+  State<BuatJurnalPage> createState() => _BuatJurnalPageState();
 }
 
 class _BuatJurnalPageState extends State<BuatJurnalPage> {
@@ -24,16 +13,97 @@ class _BuatJurnalPageState extends State<BuatJurnalPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Kelas:'),
+              const SizedBox(height: 10), // Jeda 10 jarak
+              TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Masukkan Kelas',
+                ),
+                onChanged: (value) => {},
+              ),
+              const SizedBox(height: 10),
+              const Text('Nama Mapel:'),
+              const SizedBox(height: 10),
+              TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Masukkan Nama Mapel',
+                ),
+                onChanged: (value) => {},
+              ),
+              const SizedBox(height: 10),
+              const Text('Jam ke-'),
+              const SizedBox(height: 10),
+              DropdownButtonFormField<String>(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(), // garis tepi
+                  labelText: 'Pilih Jam',
+                ),
+                items: const [
+                  DropdownMenuItem(value: '1', child: Text('1')),
+                  DropdownMenuItem(value: '2', child: Text('2')),
+                  DropdownMenuItem(value: '3', child: Text('3')),
+                  DropdownMenuItem(value: '4', child: Text('4')),
+                  DropdownMenuItem(value: '5', child: Text('5')),
+                  DropdownMenuItem(value: '6', child: Text('6')),
+                  DropdownMenuItem(value: '7', child: Text('7')),
+                  DropdownMenuItem(value: '8', child: Text('8')),
+                ],
+                onChanged: (value) => {},
+              ),
+              const SizedBox(height: 10),
+              _textArea('Tujuan Pembelajaran', 'Masukkan Tujuan Pembelajaran'),
+              const SizedBox(height: 10),
+              _textArea('Materi/Topik Pembelajaran', 'Masukkan Materi/Topik Pembelajaran'),
+              const SizedBox(height: 10),
+              _textArea('Kegiatan Pembelajaran', 'Masukkan Kegiatan Pembelajaran'),
+              const SizedBox(height: 10),
+              _textArea('Dimensi Profil Pelajar Pancasila', 'Tuliskan Dimensi Profil Pelajar Pancasila'),
+
+              const SizedBox(height: 10),
+              SizedBox(
+                width: double.infinity, // Lebar SizedBox akan maksimal.
+                child: ElevatedButton( // ElevatedButton sebagai child dari SizedBox. Lebarnya akan mengikuti lebar parent-nya.
+                  onPressed: () => {},
+                  child: const Text('Simpan'),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _textArea(
+    String label,
+    String hint, [
+    void Function(String value)? onChanged,
+  ]) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label),
+        const SizedBox(height: 10),
+        TextField(
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            labelText: hint,
+          ),
+          maxLines: 4,
+          onChanged: onChanged,
+        ),
+      ],
     );
   }
 }
