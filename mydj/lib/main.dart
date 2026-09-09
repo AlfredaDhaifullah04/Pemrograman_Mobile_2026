@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mydj/pages/simple_home_page.dart';
+import 'package:mydj/data/data_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      // <-- Tambahkan ini.
+      create: (context) => DataProvider(),
+      child:
+          MyApp(), // <-- Sekarang widget utama aplikasi kita menjadi child dari Provider.
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mydj/jurnal/jurnal.dart';
+import 'package:provider/provider.dart';
+import 'package:mydj/data/data_provider.dart';
+
 
 class BuatJurnalPage extends StatefulWidget {
   final String title;
@@ -9,6 +13,28 @@ class BuatJurnalPage extends StatefulWidget {
 }
 
 class _BuatJurnalPageState extends State<BuatJurnalPage> {
+  String kelas = '';
+  String mapel = '';
+  int jamKe = 0;
+  String tujuanPembelajaran = '';
+  String materiTopikPembelajaran = '';
+  String kegiatanPembelajaran = '';
+  String dimensiProfilPelajarPancasila = '';
+
+  void _saveJurnal(BuildContext context) {
+    Jurnal jurnal = Jurnal(
+      kelas: kelas,
+      mapel: mapel,
+      jam: jamKe,
+      tujuanPembelajaran: tujuanPembelajaran,
+      materiTopikPembelajaran: materiTopikPembelajaran,
+      kegiatanPembelajaran: kegiatanPembelajaran,
+      dimensiProfilPelajarPancasila: dimensiProfilPelajarPancasila,
+    );
+    DataProvider provider = context.read<DataProvider>();
+    provider.addNew(jurnal);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +55,11 @@ class _BuatJurnalPageState extends State<BuatJurnalPage> {
                   border: OutlineInputBorder(),
                   labelText: 'Masukkan Kelas',
                 ),
-                onChanged: (value) => {},
+                onChanged: (value) => {
+                  setState(() {
+                    kelas = value;
+                  }),
+                },
               ),
               const SizedBox(height: 10),
               const Text('Nama Mapel:'),
@@ -39,7 +69,11 @@ class _BuatJurnalPageState extends State<BuatJurnalPage> {
                   border: OutlineInputBorder(),
                   labelText: 'Masukkan Nama Mapel',
                 ),
-                onChanged: (value) => {},
+                onChanged: (value) => {
+                  setState(() {
+                    mapel = value;
+                  }),
+                },
               ),
               const SizedBox(height: 10),
               const Text('Jam ke-'),
@@ -59,22 +93,52 @@ class _BuatJurnalPageState extends State<BuatJurnalPage> {
                   DropdownMenuItem(value: '7', child: Text('7')),
                   DropdownMenuItem(value: '8', child: Text('8')),
                 ],
-                onChanged: (value) => {},
+                onChanged: (value) => {
+                  setState(() {
+                    if (value != null) {
+                      jamKe = int.parse(
+                        value,
+                      ); // Konversi String dari dropdown menjadi int
+                    }
+                  }),
+                },
               ),
               const SizedBox(height: 10),
-              _textArea('Tujuan Pembelajaran', 'Masukkan Tujuan Pembelajaran'),
+              _textArea('Tujuan Pembelajaran', 'Masukkan Tujuan Pembelajaran', (
+                text,
+              ) {
+                tujuanPembelajaran = text;
+              }),
+              _textArea(
+                'Materi/Topik Pembelajaran',
+                'Masukkan Materi/Topik Pembelajaran',
+                (text) {
+                  materiTopikPembelajaran = text;
+                },
+              ),
               const SizedBox(height: 10),
-              _textArea('Materi/Topik Pembelajaran', 'Masukkan Materi/Topik Pembelajaran'),
+              _textArea(
+                'Kegiatan Pembelajaran',
+                'Masukkan Kegiatan Pembelajaran',
+                (text) {
+                  kegiatanPembelajaran = text;
+                },
+              ),
               const SizedBox(height: 10),
-              _textArea('Kegiatan Pembelajaran', 'Masukkan Kegiatan Pembelajaran'),
-              const SizedBox(height: 10),
-              _textArea('Dimensi Profil Pelajar Pancasila', 'Tuliskan Dimensi Profil Pelajar Pancasila'),
+              _textArea(
+                'Dimensi Profil Pelajar Pancasila',
+                'Tuliskan Dimensi Profil Pelajar Pancasila',
+                (text) {
+                  dimensiProfilPelajarPancasila = text;
+                },
+              ),
 
               const SizedBox(height: 10),
               SizedBox(
                 width: double.infinity, // Lebar SizedBox akan maksimal.
-                child: ElevatedButton( // ElevatedButton sebagai child dari SizedBox. Lebarnya akan mengikuti lebar parent-nya.
-                  onPressed: () => {},
+                child: ElevatedButton(
+                  // ElevatedButton sebagai child dari SizedBox. Lebarnya akan mengikuti lebar parent-nya.
+                  onPressed: () => {_saveJurnal(context)},
                   child: const Text('Simpan'),
                 ),
               ),
@@ -88,7 +152,7 @@ class _BuatJurnalPageState extends State<BuatJurnalPage> {
   Widget _textArea(
     String label,
     String hint, [
-    void Function(String value)? onChanged,
+    void Function(String text)? onChanged,
   ]) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
