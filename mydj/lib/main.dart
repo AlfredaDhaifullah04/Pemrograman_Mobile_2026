@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mydj/pages/simple_home_page.dart';
 import 'package:mydj/data/data_provider.dart';
 import 'package:provider/provider.dart';
-
+import 'package:mydj/pages/login_page.dart'; 
 void main() {
   runApp(
     ChangeNotifierProvider(
@@ -25,7 +24,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const SimpleHomePage(title: 'Jural Harian guru'),
+      home:
+          const LoginPage(), // <-- Kita ganti dengan halaman login yang kita buat
     );
   }
 }
