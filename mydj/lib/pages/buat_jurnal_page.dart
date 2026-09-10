@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mydj/jurnal/jurnal.dart';
 import 'package:provider/provider.dart';
 import 'package:mydj/data/data_provider.dart';
-
+import 'package:mydj/components/media_selector.dart';
 
 class BuatJurnalPage extends StatefulWidget {
   final String title;
@@ -132,6 +132,18 @@ class _BuatJurnalPageState extends State<BuatJurnalPage> {
                   dimensiProfilPelajarPancasila = text;
                 },
               ),
+              SizedBox(height: 10),
+              Text('Foto Kegiatan'),
+              SizedBox(height: 10),
+              MediaSelector(
+                mediaType: MediaType.photo,
+              ), // <-- MediaSelector untuk foto.
+              SizedBox(height: 10),
+              Text('Video Kegiatan'),
+              SizedBox(height: 10),
+              MediaSelector(
+                mediaType: MediaType.video,
+              ), // <-- MediaSelector untuk video.
 
               const SizedBox(height: 10),
               SizedBox(

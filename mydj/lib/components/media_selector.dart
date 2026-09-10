@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mydj/components/video_privew.dart';
 
 // import 'package:mydj/components/video_preview.dart';
 
@@ -76,22 +78,16 @@ class _MediaSelectorState extends State<MediaSelector> {
   Widget _mediaPlaceholder() {
     Icon icon;
     String caption = '';
-    Widget placeholderWidget;
+
     // Cek jenis medianya apakah foto atau video
     if (widget.mediaType == MediaType.photo) {
       icon = const Icon(Icons.image_not_supported, color: Colors.grey);
       caption = 'No photo';
-      placeholderWidget = Image.file(
-        File(_mediaPath),
-        width: double.infinity, // <-- Isi penuh parent
-        fit: BoxFit.fitWidth, // <-- Tinggi otomatis sesuai rasio
-      );
     } else {
       icon = const Icon(Icons.videocam_off, color: Colors.grey);
       caption = 'No video';
-      placeholderWidget =
-          const Column(); // <-- Nanti kita ganti dengan komponen yang kita buat
     }
+
     // Jika path kosong, tampilkan "No Photo/Video".
     if (_mediaPath.isEmpty) {
       return SizedBox(
@@ -99,10 +95,28 @@ class _MediaSelectorState extends State<MediaSelector> {
         child: Row(children: [icon, const SizedBox(width: 8), Text(caption)]),
       );
     }
+
     // Jika path ada isinya, tampilkan medianya.
-    else {
-      return SizedBox(width: double.infinity, child: placeholderWidget);
+    Widget placeholderWidget;
+    if (widget.mediaType == MediaType.photo) {
+      if (kIsWeb) {
+        placeholderWidget = Image.network(
+          _mediaPath,
+          width: double.infinity, // <-- Isi penuh parent
+          fit: BoxFit.fitWidth, // <-- Tinggi otomatis sesuai rasio
+        );
+      } else {
+        placeholderWidget = Image.file(
+          File(_mediaPath),
+          width: double.infinity, // <-- Isi penuh parent
+          fit: BoxFit.fitWidth, // <-- Tinggi otomatis sesuai rasio
+        );
+      }
+    } else {
+      placeholderWidget = VideoPreview(path: _mediaPath); // <-- Nanti kita ganti dengan komponen yang kita buat
     }
+
+    return SizedBox(width: double.infinity, child: placeholderWidget);
   }
 
   Future<XFile?> _retrieveMedia(ImageSource source) async {
