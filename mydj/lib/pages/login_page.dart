@@ -13,18 +13,18 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String namaPengguna = ''; // <-- Nantinya digunakan untuk menyimpan username
-  String sandi = '';
+  String sandi = ''; // <-- Yang ini digunakan untuk menyimpan password
 
   void login(BuildContext context) {
     if (namaPengguna == '' && sandi == '') {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => SimpleHomePage(title: 'Dashboard'),
+          builder: (context) => const SimpleHomePage(title: 'Dashboard'),
         ),
       );
     }
-  } // <-- Yang ini digunakan untuk menyimpan password
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Center(
             child: Column(
@@ -45,19 +45,30 @@ class _LoginPageState extends State<LoginPage> {
                   'assets/images/login.png',
                   width: 250,
                 ), // <-- Menampilkan gambar login
-                SizedBox(height: 30),
-                Text('Nama pengguna'),
-                SizedBox(height: 10),
+                const SizedBox(height: 30),
+                const Text('Nama pengguna'),
+                const SizedBox(height: 10),
                 TextField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Masukkan nama pengguna',
                   ),
+                  onChanged: (value) {
+                    setState(() {
+                      namaPengguna = value;
+                    });
+                  },
                 ),
-                SizedBox(height: 10),
-                Text('Sandi'),
-                PasswordField(),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
+                const Text('Sandi'),
+                PasswordField(
+                  onChanged: (value) {
+                    setState(() {
+                      sandi = value;
+                    });
+                  },
+                ),
+                const SizedBox(height: 10),
 
                 SizedBox(
                   width: 200,

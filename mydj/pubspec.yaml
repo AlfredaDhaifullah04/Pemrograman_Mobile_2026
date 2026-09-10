@@ -37,6 +37,12 @@ dependencies:
 
   provider: ^6.1.2
 
+  #image picker
+  image_picker: ^1.2.0
+
+  #Video player
+  video_player: ^2.9.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
