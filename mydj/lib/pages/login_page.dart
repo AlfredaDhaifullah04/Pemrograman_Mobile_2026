@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:mydj/components/password_field.dart';
+import 'package:mydj/data/data_provider.dart';
 import 'package:mydj/pages/simple_home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -15,14 +17,23 @@ class _LoginPageState extends State<LoginPage> {
   String namaPengguna = ''; // <-- Nantinya digunakan untuk menyimpan username
   String sandi = ''; // <-- Yang ini digunakan untuk menyimpan password
 
-  void login(BuildContext context) {
-    if (namaPengguna == '' && sandi == '') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const SimpleHomePage(title: 'Dashboard'),
-        ),
-      );
+  Future<void> _login(BuildContext context) async {
+    // Ambil instance Provider (state management) kita dari BuildContext
+    DataProvider provider = context.read<DataProvider>();
+    // Jika username dan password benar..
+    if (namaPengguna == 'guru' && sandi == 'guru') {
+      // Simpan info login lewat Provider (State Management))
+      await provider.saveLoginInfo(namaPengguna, sandi);
+      // Jika ingin menggunakan BuildContext dalam operasi async, harus dicek dulu
+      if (context.mounted) {
+        // Buka halaman home
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const SimpleHomePage(title: 'Beranda'),
+          ),
+        );
+      }
     }
   }
 
@@ -74,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: 200,
                   child: ElevatedButton(
                     onPressed: () {
-                      login(context); // <-- Fungsi dipanggil di sini
+                      _login(context); // <-- Fungsi dipanggil di sini
                     },
                     child: const Text('Login'),
                   ),
