@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mydj/data/data_provider.dart';
+import 'package:mydj/pages/startup_page.dart';
 import 'package:provider/provider.dart';
 import 'package:mydj/pages/login_page.dart'; 
+import 'package:mydj/pages/startup_page.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       home:
-          const LoginPage(), // <-- Kita ganti dengan halaman login yang kita buat
+          const StartupPage(), // <-- Kita ganti dengan halaman login yang kita buat
     );
   }
 }
