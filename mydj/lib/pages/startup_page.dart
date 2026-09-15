@@ -6,39 +6,49 @@ import 'package:mydj/pages/login_page.dart';
 
 class StartupPage extends StatefulWidget {
   const StartupPage({super.key});
+
   @override
   State<StartupPage> createState() => _StartupPageState();
 }
 
 class _StartupPageState extends State<StartupPage> {
-  bool _isLoggedIn = false;
-  @override
-  Widget build(BuildContext context) {
-    // Ketika masih loading, tampilkan spinnerif (_isLoggedIn == null)
-    {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
-    // Jika user sudah pernah login → HomePage, jika belum atau sudah logout → LoginPage
-    return _isLoggedIn!
-        ? const SimpleHomePage(title: 'Beranda')
-        : const LoginPage();
-  }
+  bool? _isLoggedIn;
 
   @override
   void initState() {
     super.initState();
-    _checkLoginStatus(); // <-- Kita akan implementasikan method ini nanti.
+    _checkLoginStatus();
   }
 
   Future<void> _checkLoginStatus() async {
-    // Ambil instance state management (Provider).
-    final DataProvider provider = context.read<DataProvider>();
-    // Panggil method pengecekan login dari instance tersebut.
-    final bool isLoggedIn = await provider.isLoggedIn();
-    // Setelah async, pastikan widget masih ada.
+    bool status = false;
+    try {
+      final provider = context.read<DataProvider>();
+      status = await provider.isLoggedIn().timeout(
+        const Duration(seconds: 5),
+        onTimeout: () => false,
+      );
+    } catch (e, stack) {
+      debugPrint('Error cek status login: $e\n$stack');
+      status = false;
+    }
+
     if (!mounted) return;
     setState(() {
-      _isLoggedIn = isLoggedIn;
+      _isLoggedIn = status;
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_isLoggedIn == null) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    return _isLoggedIn!
+        ? const SimpleHomePage(title: 'Beranda')
+        : const LoginPage();
   }
 }
